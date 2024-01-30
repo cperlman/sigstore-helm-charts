@@ -1,0 +1,33 @@
+namespace:
+  name: spyder-apps
+
+config:
+  contents:
+    OIDCIssuers:
+      https://sts.windows.net/81fa766e-a349-4867-8bf4-ab35e250a08f/:
+        IssuerURL: https://sts.windows.net/81fa766e-a349-4867-8bf4-ab35e250a08f/
+        ClientID: https://management.azure.com/
+        Type: username
+        SubjectDomain: sts.windows.net
+      # add aws equivalent here
+
+server:
+  replicaCount: 2
+  # ct_log_url=http://ctlog.default.svc/sigstore
+  ingress:
+    http:
+      hosts:
+        - path: /
+          host: fulcio.rdswf.net
+  args:
+    disable_ct_log: true
+  # logging:
+  #   production: true
+
+ctlog:
+  enabled: false
+  forceNamespace: ""
+  namespace:
+    name: default
+
+# resources??

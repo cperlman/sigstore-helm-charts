@@ -1,0 +1,13 @@
+deployment:
+  replicas: 2
+
+ingress:
+  http:
+    hosts:
+      - path: /
+        host: "tuf.rdswf.net"
+
+namespace:
+  name: spyder-apps
+
+# resources: ???

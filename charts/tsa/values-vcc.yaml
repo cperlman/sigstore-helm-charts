@@ -1,0 +1,21 @@
+namespace:
+  name: spyder-apps
+
+server:
+  replicaCount: 2
+  env:
+    GOOGLE_APPLICATION_CREDENTIALS: ""
+  ingress:
+    http:
+      className: "nginx"
+      annotations: {}
+      hosts:
+      - path: /
+        host: "timestamp.rdswf.net"
+      tls: []
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65533
+
+# Force namespace of namespaced resources
+forceNamespace: ""

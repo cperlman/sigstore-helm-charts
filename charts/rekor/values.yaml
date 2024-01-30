@@ -199,10 +199,10 @@ backfillredis:
 # Configure Trillian dependency
 trillian:
   enabled: true
-  namespace:
-    name: trillian-system
-    create: true
-  forceNamespace: trillian-system
+  # namespace:
+  #   name: trillian-system
+  #   create: true
+  # forceNamespace: trillian-system
   fullnameOverride: trillian
   adminServer: ""
   logServer:

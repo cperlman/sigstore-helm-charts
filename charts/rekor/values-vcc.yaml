@@ -1,0 +1,37 @@
+namespace:
+  name: spyder-apps
+
+redis:
+  enabled: false
+
+server:
+  replicaCount: 2
+#  signer: "/key/private" ?? implications of this?
+#  sharding: ??
+  retrieve_api:
+    enabled: false  # disable redis
+  resources:
+    requests:
+      cpu: 1
+      memory: 1Gi
+    limits:
+      cpu: 2
+      memory: 2Gi
+  ingress:
+    hosts:
+      - path: /
+        host: rekor.dev.rdswf.net
+
+trillian:
+  namespace:
+    name: spyder-apps
+    create: false
+  forceNamespace: "spyder-apps"
+  logServer:
+    name: trillian-log-server
+    fullnameOverride: trillian-log-server
+    portHTTP: 8090
+    portRPC: 8091
+  logSigner:
+    name: trillian-log-signer
+    fullnameOverride: trillian-log-signer

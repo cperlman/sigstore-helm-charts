@@ -1,0 +1,11 @@
+namespace:
+  name: spyder-apps
+
+#  auth: ???
+
+logServer:
+  replicaCount: 2
+
+logSigner:
+  replicaCount: 2
+  # forceMaster: false ???

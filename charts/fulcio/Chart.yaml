@@ -17,11 +17,11 @@ home: https://sigstore.dev/
 maintainers:
   - name: The Sigstore Authors
 
-dependencies:
-  - name: ctlog
-    version: 0.2.48
-    repository: https://sigstore.github.io/helm-charts
-    condition: ctlog.enabled
+# dependencies:
+#   - name: ctlog
+#     version: 0.2.48
+#     repository: https://sigstore.github.io/helm-charts
+#     condition: ctlog.enabled
 
 annotations:
   artifacthub.io/license: Apache-2.0

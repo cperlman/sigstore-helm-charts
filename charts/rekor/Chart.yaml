@@ -17,11 +17,11 @@ sources:
 maintainers:
   - name: The Sigstore Authors
 
-dependencies:
-  - name: trillian
-    version: 0.2.19
-    repository: https://sigstore.github.io/helm-charts
-    condition: trillian.enabled
+# dependencies:
+#   - name: trillian
+#     version: 0.2.19
+#     repository: https://sigstore.github.io/helm-charts
+#     condition: trillian.enabled
 
 annotations:
   artifacthub.io/license: Apache-2.0

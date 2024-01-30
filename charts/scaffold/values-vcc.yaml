@@ -1,0 +1,182 @@
+fulcio:
+  namespace:
+    name: spyder-apps
+
+  config:
+    contents:
+      OIDCIssuers:
+        https://sts.windows.net/81fa766e-a349-4867-8bf4-ab35e250a08f/:
+          IssuerURL: https://sts.windows.net/81fa766e-a349-4867-8bf4-ab35e250a08f/
+          ClientID: https://management.azure.com/
+          Type: username
+          SubjectDomain: sts.windows.net
+        # add aws equivalent here
+
+  server:
+    replicaCount: 2
+    # ct_log_url=http://ctlog.default.svc/sigstore
+    ingress:
+      http:
+        hosts:
+          - path: /
+            host: fulcio.rdswf.net
+    # logging:
+    #   production: true
+
+  ctlog:
+    forceNamespace: ""
+    namespace:
+      name: default
+#   enabled: true
+#   namespace:
+#     name: default
+# #    create: true
+# #  forceNamespace: default
+#   server:
+#     fullnameOverride: fulcio-server
+#   createcerts:
+#     fullnameOverride: fulcio-createcerts
+#   ctlog:
+#     enabled: false  # stretch
+#     createctconfig:
+#       logPrefix: sigstore
+
+ctlog:
+  namespace:
+    name: spyder-apps
+
+  server:
+    replicaCount: 2
+    # resources??
+
+  createctconfig:
+    logPrefix: sigstore
+
+#   enabled: true
+#   namespace:
+#     name: default
+#     #create: true
+# #  forceNamespace: ctlog-system
+#   fullnameOverride: ctlog
+#   createcerts:
+#     fullnameOverride: ctlog-createcerts
+#   createtree:
+#     fullnameOverride: ctlog-createtree
+#     displayName: ctlog-tree
+
+rekor:
+  namespace:
+    name: spyder-apps
+
+  redis:
+    enabled: false
+
+  server:
+    replicaCount: 2
+  #  signer: "/key/private" ?? implications of this?
+  #  sharding: ??
+    retrieve_api:
+      enabled: false  # disable redis
+    resources:
+      requests:
+        cpu: 1
+        memory: 1Gi
+      limits:
+        cpu: 2
+        memory: 2Gi
+    ingress:
+      hosts:
+        - path: /
+          host: rekor.rdswf.net
+
+  trillian:
+    namespace:
+      name: spyder-apps
+    forceNamespace: ""
+
+#   enabled: true
+#   namespace:
+#     name: default
+# #    create: true
+# #  forceNamespace: rekor-system
+#   fullnameOverride: rekor
+#   server:
+#     fullnameOverride: rekor-server
+#   redis:  # do we actually need this, seems like overkill?  --enable_retrieve_api=false in server args to switch off
+#     fullnameOverride: rekor-redis
+#   trillian:
+#     enabled: false
+
+trillian:
+  namespace:
+    name: spyder-apps
+
+  # we probably want a managed resource for this instead!
+  mysql:
+    replicaCount: 2
+
+  #  auth: ???
+
+  logServer:
+    replicaCount: 2
+
+  logSigner:
+    replicaCount: 2
+
+  # forceMaster: false ???
+#   enabled: true
+#   namespace:
+#     name: default
+# #    create: true
+# #  forceNamespace: trillian-system
+#   fullnameOverride: trillian
+#   logServer:
+#     name: trillian-logserver
+#     fullnameOverride: trillian-logserver
+#     portHTTP: 8090
+#     portRPC: 8091
+#   logSigner:
+#     name: trillian-logsigner
+#     fullnameOverride: trillian-logsigner
+#   mysql:
+#     fullnameOverride: trillian-mysql
+
+tuf:
+  enabled: false
+  namespace:
+    name: default
+#    create: true
+#  forceNamespace: tuf-system
+  fullnameOverride: tuf
+
+  secrets:
+    rekor:
+      name: rekor-public-key
+      path: rekor.pub
+    fulcio:
+      name: fulcio-server-secret
+      path: fulcio_v1.crt.pem
+    ctlog:
+      name: ctlog-public-key
+      path: ctfe.pub
+
+# this should not be required when everything is in the same namespace
+copySecretJob:
+  enabled: false
+  name: copy-secrets-job
+  registry: docker.io
+  repository: alpine/k8s
+  version: sha256:fb0d2db81fb0f98abb1adf5246d6f0f4d19f34031afe4759cb7ad8e2eb8d2c01
+  imagePullPolicy: IfNotPresent
+  serviceaccount: tuf-secret-copy-job
+  backoffLimit: 6
+
+# we do want this but perhaps only later
+tsa:
+  enabled: false
+  namespace:
+    name: default
+#    create: true
+#  forceNamespace: tsa-system
+  server:
+    fullnameOverride: tsa-server

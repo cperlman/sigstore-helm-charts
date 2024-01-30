@@ -1,0 +1,15 @@
+namespace:
+  name: spyder-apps
+
+server:
+  replicaCount: 2
+  # resources??
+
+createctconfig:
+  logPrefix: sigstore
+  fulcioURL: "http://fulcio-server.spyder-apps.svc"
+
+trillian:
+  namespace: spyder-apps
+  logServer:
+    name: trillian-log-server
