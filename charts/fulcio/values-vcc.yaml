@@ -13,21 +13,24 @@ config:
 
 server:
   replicaCount: 2
-  # ct_log_url=http://ctlog.default.svc/sigstore
   ingress:
     http:
       hosts:
         - path: /
-          host: fulcio.rdswf.net
+          host: fulcio.dev.rdswf.net
+      annotations:
+        nginx.ingress.kubernetes.io/service-upstream: "true"
+  #      cert-manager.io/cluster-issuer: letsencrypt
+  ct_log_url: "https://ctlog.spyder-apps/fulcio"
   args:
-    disable_ct_log: true
+    disable_ct_log: false
   # logging:
   #   production: true
 
 ctlog:
-  enabled: false
-  forceNamespace: ""
+  enabled: true
+  forceNamespace: "spyder-apps"
   namespace:
-    name: default
+    name: spyder-apps
 
 # resources??

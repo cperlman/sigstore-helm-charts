@@ -21,6 +21,14 @@ server:
     hosts:
       - path: /
         host: rekor.dev.rdswf.net
+    annotations:
+      nginx.ingress.kubernetes.io/service-upstream: "true"
+#      cert-manager.io/cluster-issuer: letsencrypt
+  # attestation_storage:
+  #   enabled: true
+  #   bucket: file:///var/run/attestations
+  #   persistence:
+  #     enabled: false
 
 trillian:
   namespace:
