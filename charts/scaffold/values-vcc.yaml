@@ -13,7 +13,7 @@ fulcio:
         # add aws equivalent here
 
   server:
-    replicaCount: 2
+   # replicaCount: 2
     # ct_log_url=http://ctlog.default.svc/sigstore
     ingress:
       http:

@@ -4,8 +4,8 @@ namespace:
 #  auth: ???
 
 logServer:
-  replicaCount: 2
+  replicaCount: 1
 
 logSigner:
-  replicaCount: 2
+  replicaCount: 1
   # forceMaster: false ???

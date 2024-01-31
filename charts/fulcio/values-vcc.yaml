@@ -12,7 +12,7 @@ config:
       # add aws equivalent here
 
 server:
-  replicaCount: 2
+  #replicaCount: 2
   ingress:
     http:
       hosts:
@@ -21,9 +21,10 @@ server:
       annotations:
         nginx.ingress.kubernetes.io/service-upstream: "true"
   #      cert-manager.io/cluster-issuer: letsencrypt
-  ct_log_url: "https://ctlog.spyder-apps/fulcio"
   args:
+    ct_log_url: "http://ctlog.spyder-apps/sigstore"
     disable_ct_log: false
+    # note: ct_log_url MUST be http, not https to work (at present at least)
   # logging:
   #   production: true
 

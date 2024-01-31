@@ -2,14 +2,14 @@ namespace:
   name: spyder-apps
 
 redis:
-  enabled: false
+  enabled: true
 
 server:
-  replicaCount: 2
+ # replicaCount: 2
 #  signer: "/key/private" ?? implications of this?
 #  sharding: ??
-  retrieve_api:
-    enabled: false  # disable redis
+  # retrieve_api:
+  #   enabled: false  # disable redis
   resources:
     requests:
       cpu: 1
